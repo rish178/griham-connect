@@ -1,0 +1,9 @@
+name = "griham-connect"
+compatibility_date = "2026-07-29"
+pages_build_output_dir = "dist"
+
+# Wildcard subdomain routing (signature-sarvam.grihamconnect.com, etc.) is
+# configured in the Cloudflare dashboard, not here:
+#   1. DNS: CNAME  *.grihamconnect.com -> griham-connect.pages.dev (proxied)
+#   2. Pages project -> Custom domains -> add "*.grihamconnect.com"
+# The app resolves which project to render client-side, see src/lib/subdomain.ts.
