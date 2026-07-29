@@ -3,6 +3,7 @@ compatibility_date = "2026-07-29"
 
 [assets]
 directory = "./dist"
+not_found_handling = "single-page-application"
 
 # Wildcard subdomain routing (signature-sarvam.grihamconnect.com, etc.) is
 # configured in the Cloudflare dashboard, not here:
