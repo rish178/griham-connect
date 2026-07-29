@@ -1,5 +1,6 @@
 node_modules
 dist
+cluade_skills
 dist-ssr
 .env
 .env.local
