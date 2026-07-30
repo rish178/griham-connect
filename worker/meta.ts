@@ -1,0 +1,61 @@
+import type { Env } from './env'
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  return [...new Uint8Array(hashBuffer)].map((b) => b.toString(16).padStart(2, '0')).join('')
+}
+
+interface MetaLeadEvent {
+  submissionId: string
+  phoneE164: string
+  landingUrl: string
+  ip: string | null
+  userAgent: string | null
+  fbp: string | null
+  fbc: string | null
+}
+
+/**
+ * Server-side Lead event so Meta optimises against actual leads, not clicks —
+ * directly lowers CPL. event_id must match the browser Pixel's event_id (if
+ * one is ever added) so Meta dedupes instead of double-counting.
+ *
+ * Confirm the Graph API version against Meta's changelog before assuming
+ * v21.0 is still current by the time this runs.
+ */
+export async function sendMetaCapi(env: Env, event: MetaLeadEvent): Promise<void> {
+  if (!env.META_PIXEL_ID || !env.META_CAPI_ACCESS_TOKEN) return
+
+  // Meta's hashing spec: digits only, country code included, no leading "+".
+  const phoneDigits = event.phoneE164.replace('+', '')
+  const hashedPhone = await sha256Hex(phoneDigits)
+
+  const body = {
+    data: [
+      {
+        event_name: 'Lead',
+        event_time: Math.floor(Date.now() / 1000),
+        action_source: 'website',
+        event_source_url: event.landingUrl,
+        event_id: event.submissionId,
+        user_data: {
+          ph: [hashedPhone],
+          client_ip_address: event.ip ?? undefined,
+          client_user_agent: event.userAgent ?? undefined,
+          fbp: event.fbp ?? undefined,
+          fbc: event.fbc ?? undefined,
+        },
+      },
+    ],
+  }
+
+  await fetch(
+    `https://graph.facebook.com/v21.0/${env.META_PIXEL_ID}/events?access_token=${env.META_CAPI_ACCESS_TOKEN}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    },
+  )
+}

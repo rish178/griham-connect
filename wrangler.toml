@@ -1,12 +1,19 @@
 name = "griham-connect"
 compatibility_date = "2026-07-29"
+main = "./worker/index.ts"
 
 [assets]
 directory = "./dist"
 not_found_handling = "single-page-application"
+binding = "ASSETS"
+run_worker_first = ["/api/*"]
 
-# Wildcard subdomain routing (signature-sarvam.grihamconnect.com, etc.) is
-# configured in the Cloudflare dashboard, not here:
-#   1. DNS: CNAME  *.grihamconnect.com -> griham-connect.workers.dev (proxied)
-#   2. Worker -> Settings -> Domains & Routes -> add "*.grihamconnect.com"
-# The app resolves which project to render client-side, see src/lib/subdomain.ts.
+# Custom domain per project, configured in the Cloudflare dashboard (not here):
+#   Worker -> Settings -> Domains & Routes -> Add -> Custom Domain
+#   -> sarvam.grihamconnect.com
+# Custom Domains don't accept wildcards, and a wildcard Route needs a dummy
+# proxied DNS record to already exist — with one live project, a Custom
+# Domain per project is simpler. See docs/cloudflare-setup.md §5 for the
+# wildcard setup when that stops being true (realistically 8-10+ projects).
+# The app also resolves the project from the hostname client-side for the
+# eventual wildcard case, see src/lib/subdomain.ts.

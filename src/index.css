@@ -1,3 +1,38 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background font-body text-foreground antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer components {
+  /* Small gold all-caps label used above section headings. */
+  .eyebrow {
+    @apply font-display text-[0.6875rem] font-bold uppercase text-gold;
+    letter-spacing: 0.3em;
+  }
+
+  /* Thin gold divider that fades out at both ends. */
+  .gold-rule {
+    @apply h-px w-full bg-gold-rule opacity-50;
+  }
+
+  /* Dark gradient over the hero image so text stays legible. */
+  .hero-scrim {
+    @apply bg-hero-scrim;
+  }
+}

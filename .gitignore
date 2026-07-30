@@ -4,7 +4,16 @@ cluade_skills
 dist-ssr
 .env
 .env.local
+.dev.vars
 .DS_Store
 *.local
 *.log
 .wrangler
+
+# local editor/agent settings
+.claude/
+
+# tsc -b build artifacts
+*.tsbuildinfo
+vite.config.js
+vite.config.d.ts

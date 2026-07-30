@@ -1,0 +1,19 @@
+# Worker secrets for local `wrangler dev` / `npm run worker:dev`.
+# Copy to .dev.vars (gitignored) and fill in real values.
+# In production these are set with `npx wrangler secret put <NAME>`, not here.
+# See docs/lead-capture-plan.md §7 and docs/cloudflare-setup.md §2.2.
+
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Cloudflare Turnstile secret key (paired with VITE_TURNSTILE_SITE_KEY in
+# .env.local). For local dev with the test site key 1x00000000000000000000AA,
+# use the matching always-passes test secret: 1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=
+
+# Optional — each integration below no-ops until its value is set, so the
+# Worker runs fine without them during Phase 1 development.
+SLACK_WEBHOOK_URL=
+SHEET_WEBHOOK_URL=
+META_PIXEL_ID=
+META_CAPI_ACCESS_TOKEN=

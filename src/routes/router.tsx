@@ -8,13 +8,19 @@ import NotFoundPage from '../pages/NotFoundPage'
 // either by its wildcard subdomain (signature-sarvam.grihamconnect.com,
 // resolved client-side in HomePage) or directly by path — useful for local
 // dev, previews, and QA before DNS/Cloudflare is wired up.
+//
+// Project landing pages sit outside the <App> layout: each one is a
+// self-contained page with its own header, footer and brand system.
 export const router = createBrowserRouter([
+  {
+    path: '/projects/:slug',
+    element: <ProjectLandingPage />,
+  },
   {
     path: '/',
     element: <App />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: 'projects/:slug', element: <ProjectLandingPage /> },
       { path: '*', element: <NotFoundPage /> },
     ],
   },
