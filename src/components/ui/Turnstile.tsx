@@ -54,6 +54,10 @@ export default function TurnstileWidget({ onToken, onExpire }: TurnstileWidgetPr
         sitekey: siteKey,
         callback: onToken,
         'expired-callback': onExpire,
+        // Stay invisible unless Cloudflare actually needs the visitor to
+        // interact — zero friction on a paid-traffic conversion page for the
+        // common case, without needing a separate Invisible-mode widget/key.
+        appearance: 'interaction-only',
       })
     })
 
