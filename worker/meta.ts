@@ -48,9 +48,13 @@ export async function sendMetaCapi(env: Env, event: MetaLeadEvent): Promise<void
         },
       },
     ],
+    // Routes the event to Events Manager's Test Events tab instead of (or in
+    // addition to) counting toward real campaign data. Set only while
+    // testing — see docs/cloudflare-setup.md for how to test CAPI events.
+    ...(env.META_TEST_EVENT_CODE ? { test_event_code: env.META_TEST_EVENT_CODE } : {}),
   }
 
-  await fetch(
+  const res = await fetch(
     `https://graph.facebook.com/v21.0/${env.META_PIXEL_ID}/events?access_token=${env.META_CAPI_ACCESS_TOKEN}`,
     {
       method: 'POST',
@@ -58,4 +62,8 @@ export async function sendMetaCapi(env: Env, event: MetaLeadEvent): Promise<void
       body: JSON.stringify(body),
     },
   )
+
+  if (!res.ok) {
+    console.error('Meta CAPI request failed', res.status, await res.text())
+  }
 }

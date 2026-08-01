@@ -11,4 +11,7 @@ export interface Env {
   SHEET_WEBHOOK_URL?: string
   META_PIXEL_ID?: string
   META_CAPI_ACCESS_TOKEN?: string
+  // Set only while testing — routes CAPI events into Events Manager's Test
+  // Events tab instead of live campaign data. Unset in real production.
+  META_TEST_EVENT_CODE?: string
 }

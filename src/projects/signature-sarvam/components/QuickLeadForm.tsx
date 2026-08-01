@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { getUtm } from '../../../lib/utm'
 import { getSubmissionId, clearSubmissionId } from '../../../lib/session'
 import { CONSENT_TEXT, CONSENT_VERSION, leadPayloadSchema } from '../../../lib/leadSchema'
+import { trackLead } from '../../../lib/metaPixel'
 import TurnstileWidget from '../../../components/ui/Turnstile'
 
 /**
@@ -81,6 +82,7 @@ export default function QuickLeadForm() {
       const result = (await res.json()) as { ok: boolean; error?: string }
       if (!res.ok || !result.ok) throw new Error(result.error ?? 'Request failed')
 
+      trackLead(parsed.data.submission_id)
       clearSubmissionId()
       setDone(true)
     } catch {

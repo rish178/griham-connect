@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { BadgeCheck, Building2, IndianRupee, MapPin } from 'lucide-react'
 
 import { captureUtm } from '../../lib/utm'
+import { initMetaPixel } from '../../lib/metaPixel'
 import { useSeo } from '../../lib/useSeo'
 import LeadForm from './components/LeadForm'
 import QuickLeadForm from './components/QuickLeadForm'
@@ -86,6 +87,7 @@ export default function SignatureSarvamPage() {
 
   useEffect(() => {
     captureUtm()
+    initMetaPixel()
     const id = setInterval(
       () => setTaglineIndex((index) => (index + 1) % TAGLINES.length),
       4000,

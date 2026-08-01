@@ -17,3 +17,8 @@ SLACK_WEBHOOK_URL=
 SHEET_WEBHOOK_URL=
 META_PIXEL_ID=
 META_CAPI_ACCESS_TOKEN=
+
+# While testing CAPI: paste the code from Events Manager -> your pixel ->
+# Test Events tab. Routes events there instead of counting as real campaign
+# data. Remove/leave unset for real production use.
+META_TEST_EVENT_CODE=
