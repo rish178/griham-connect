@@ -17,3 +17,18 @@ run_worker_first = ["/api/*"]
 # wildcard setup when that stops being true (realistically 8-10+ projects).
 # The app also resolves the project from the hostname client-side for the
 # eventual wildcard case, see src/lib/subdomain.ts.
+
+[observability]
+enabled = false
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+persist = true
+invocation_logs = true
+
+[observability.traces]
+enabled = false
+persist = true
+head_sampling_rate = 1
