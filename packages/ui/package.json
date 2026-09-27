@@ -1,0 +1,19 @@
+{
+  "name": "@grihamconnect/ui",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@grihamconnect/types": "workspace:*",
+    "lucide-react": "^0.468.0"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@types/react": "^19"
+  }
+}

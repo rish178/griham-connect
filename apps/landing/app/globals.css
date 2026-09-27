@@ -1,0 +1,78 @@
+@import "tailwindcss";
+
+/*
+ * Signature Global Sarvam — quiet luxury brand system, ported verbatim from
+ * the Vite app's tailwind.config.js. Shared across projects for now; move
+ * under a per-project theme if a future project needs a different palette.
+ * Tailwind 4 defines tokens in CSS via @theme rather than a JS config file.
+ */
+@theme {
+  --color-background: #111112;
+  --color-foreground: #F4EFE6;
+  --color-card: #1A1A1C;
+  --color-border: rgba(244, 239, 230, 0.14);
+  --color-input: rgba(244, 239, 230, 0.20);
+  --color-secondary: #202022;
+  --color-muted: #202022;
+  --color-muted-foreground: #A8A49D;
+  --color-destructive: #E5484D;
+  --color-ink: #111112;
+  --color-gold: #C9A263;
+  --color-cream: #F4EFE6;
+
+  --font-display: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/*
+ * Not in Tailwind v4's recognized @theme namespace list, so these can't
+ * become `bg-*` utilities — set directly on the two component classes below
+ * instead of via @apply.
+ */
+:root {
+  --hero-scrim-gradient: linear-gradient(
+    to bottom,
+    rgba(17, 17, 18, 0.3) 0%,
+    rgba(17, 17, 18, 0.65) 45%,
+    rgba(17, 17, 18, 1) 100%
+  );
+  --gold-rule-gradient: linear-gradient(
+    90deg,
+    transparent,
+    #c9a263 20%,
+    #c9a263 80%,
+    transparent
+  );
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background font-body text-foreground antialiased;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-display;
+  letter-spacing: -0.02em;
+}
+
+/* Small gold all-caps label used above section headings. */
+.eyebrow {
+  @apply font-display text-[0.6875rem] font-bold uppercase text-gold;
+  letter-spacing: 0.3em;
+}
+
+/* Thin gold divider that fades out at both ends. */
+.gold-rule {
+  @apply h-px w-full opacity-50;
+  background-image: var(--gold-rule-gradient);
+}
+
+/* Dark gradient over the hero image so text stays legible. */
+.hero-scrim {
+  background-image: var(--hero-scrim-gradient);
+}

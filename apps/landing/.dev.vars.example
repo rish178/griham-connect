@@ -1,0 +1,24 @@
+# Worker secrets for local `next dev` (via initOpenNextCloudflareForDev) and
+# `pnpm preview`. Copy to .dev.vars (gitignored) and fill in real values.
+# In production these are set with `npx wrangler secret put <NAME>`, not here.
+
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# Cloudflare Turnstile secret key (paired with NEXT_PUBLIC_TURNSTILE_SITE_KEY
+# in .env.local). For local dev with the test site key
+# 1x00000000000000000000AA, use the matching always-passes test secret:
+# 1x0000000000000000000000000000000AA
+TURNSTILE_SECRET_KEY=
+
+# Optional — each integration below no-ops until its value is set, so the
+# route runs fine without them during early development.
+SLACK_WEBHOOK_URL=
+SHEET_WEBHOOK_URL=
+META_PIXEL_ID=
+META_CAPI_ACCESS_TOKEN=
+
+# While testing CAPI: paste the code from Events Manager -> your pixel ->
+# Test Events tab. Routes events there instead of counting as real campaign
+# data. Remove/leave unset for real production use.
+META_TEST_EVENT_CODE=

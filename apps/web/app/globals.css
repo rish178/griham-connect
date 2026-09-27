@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* Tailwind v4's auto content-detection doesn't reliably reach outside this
+   app's own directory in a pnpm workspace, so classes used only inside our
+   shared UI package silently never make it into the compiled CSS. Point it
+   there explicitly. */
+@source "../../../packages/ui/src";
+
+:root {
+  --griham-green: #146c43;
+  --griham-green-soft: #e3f0e7;
+
+  --ink: #0a0b0a;
+  --ink-soft: #4a4f4b;
+
+  --paper: #f5f7f3;
+  --white: #ffffff;
+
+  --line: #dfe4dc;
+
+  --success: #146c43;
+  --warning: #b7791f;
+  --warning-soft: #fff4dd;
+
+  --danger: #b84a4a;
+  --danger-soft: #fceaea;
+
+  --info: #4267a8;
+  --info-soft: #eaf0fa;
+}
+
+@theme inline {
+  --color-griham-green: var(--griham-green);
+  --color-griham-green-soft: var(--griham-green-soft);
+
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-fraunces);
+  --font-mono: var(--font-plex-mono);
+  --font-script: var(--font-script);
+
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--griham-green);
+  outline-offset: 2px;
+}

@@ -1,0 +1,11 @@
+{
+  "name": "@grihamconnect/db",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@grihamconnect/types": "workspace:*",
+    "@supabase/supabase-js": "^2.47.10"
+  }
+}

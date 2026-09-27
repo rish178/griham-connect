@@ -4,11 +4,15 @@ cluade_skills
 dist-ssr
 .env
 .env.local
+.env*.local
 .dev.vars
 .DS_Store
 *.local
 *.log
 .wrangler
+.next
+.turbo
+.open-next
 
 # local editor/agent settings
 .claude/
