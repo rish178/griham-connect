@@ -6,3 +6,14 @@ allowBuilds:
   workerd: true
   sharp: false
   unrs-resolver: false
+overrides:
+  # `sharp` is never a direct dependency anywhere in this workspace — it's
+  # only pulled in transitively as `next`'s optional dependency for Image
+  # Optimization, which every app here disables (`images.unoptimized: true`).
+  # Its real package ships a native .node binary that OpenNext's esbuild
+  # step can't bundle for the Cloudflare Workers runtime, and Next's file
+  # tracer picks up the require() unconditionally even though the code path
+  # is dead. See shims/sharp for the stand-in.
+  sharp: "link:./shims/sharp"
+patchedDependencies:
+  '@opennextjs/aws@4.1.1': patches/@opennextjs__aws@4.1.1.patch

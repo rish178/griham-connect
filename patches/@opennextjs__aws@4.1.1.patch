@@ -1,0 +1,30 @@
+diff --git a/dist/build/copyTracedFiles.js b/dist/build/copyTracedFiles.js
+index c847154da1464b71bbd871ba668336ae0078cfed..ad0b7aec1923f19a67ee10988a1ba4ebcaa08b00 100644
+--- a/dist/build/copyTracedFiles.js
++++ b/dist/build/copyTracedFiles.js
+@@ -234,7 +234,24 @@ File ${serverPath} does not exist
+         }
+         if (symlink) {
+             try {
+-                symlinkSync(symlink, to);
++                // On Windows, fs.symlinkSync defaults to type "file" when none is
++                // given, which then can't be read as a directory (EPERM/"Access is
++                // denied") if the target actually is one — as most pnpm symlinks
++                // are. Detect the real target type so Windows creates the right
++                // kind of reparse point; other platforms ignore the type argument.
++                const symlinkType = process.platform === "win32"
++                    ? (() => {
++                        try {
++                            return statSync(path.resolve(path.dirname(from), symlink)).isDirectory()
++                                ? "junction"
++                                : "file";
++                        }
++                        catch (e) {
++                            return "file";
++                        }
++                    })()
++                    : undefined;
++                symlinkSync(symlink, to, symlinkType);
+             }
+             catch (e) {
+                 if (e.code !== "EEXIST") {
